@@ -6,7 +6,7 @@ import Loader from "./Loader";
 const PrivateRoutes = () => {
   const [user, loading, error] = useAuthState(auth);
   if (loading) {
-    return  <Loader />;
+    return  <Loader/>;
   } else if (!user || error) {
     return <Navigate to="/" replace />;
   } else {

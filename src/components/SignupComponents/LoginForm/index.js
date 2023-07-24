@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import InputComponent from "../../common/input";
 import Button from "../../common/Button";
-import { auth, db, storage } from "../../../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db, provider, storage } from "../../../firebase";
+import { GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { getDoc } from "firebase/firestore";
 import { useDispatch } from "react-redux";
 import { doc, setDoc } from "firebase/firestore";
-import { Navigate, useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
  import {setUser} from '../../../slices/userSlice'
 import { toast } from "react-toastify";
 const LoginForm = () => {
@@ -16,8 +16,7 @@ const LoginForm = () => {
 const dispatch=useDispatch()
 const navigate=useNavigate( )
  async function handleLogin() {
-    console.log("Handling login");
-    setLoading(true)
+     setLoading(true)
     if(email && password){ try {
       //Creating user's account
       const userCredential = await signInWithEmailAndPassword(
@@ -29,8 +28,7 @@ const navigate=useNavigate( )
       //Saving user Details
       const userDoc = await getDoc(doc(db, "users", user.uid));
       const userData = userDoc.data();
-      console.log("userData", userData);
-
+ 
       //Save data in the redux
       dispatch(
         setUser({
@@ -39,7 +37,7 @@ const navigate=useNavigate( )
           uid: user.uid,
         })
       );
-      toast.success("Login Successful!");
+      toast.success("Login Successful");
       setLoading(false);
       navigate("/profile");
     } catch (e) {
@@ -54,6 +52,28 @@ toast.error("All fields are mandatory")
 
    }  
 }
+
+// signInWithPopup(auth, provider)
+//   .then((result) => {
+//     const credential = GoogleAuthProvider.credentialFromResult(result);
+//     const token = credential.accessToken;
+//     const user = result.user;
+//   })
+//   .catch((e) => {
+//     toast.error(e.message);
+//   });
+  // const handleGoogleSingIn = () => {
+  //   signInWithPopup(auth, provider)
+  //     .then((result) => {
+  //       const user = result.user;
+  //       console.log(user);
+  //       setUser(user);
+  //       toast.success("login successfull");
+  //     })
+  //     .catch((e) => {
+  //       toast.error(e.message);
+  //     });
+  // };
   return (
     <>
       <InputComponent
@@ -72,6 +92,7 @@ toast.error("All fields are mandatory")
       />
 
       <Button text={loading?"Loading...":"Login"} disabled={loading} onClick={handleLogin} />
+      {/* <Button text={loading?"Loading...":"Login using Google"} disabled={loading} onClick={handleGoogleSingIn} /> */}
     </>
   );
 };

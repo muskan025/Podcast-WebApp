@@ -1,15 +1,14 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import InputComponent from "../common/input";
 import Button from "../common/Button";
 import { toast } from "react-toastify";
 import FileInput from "../common/input/FileInput";
 import { auth, db, storage } from "../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { user } from "../../slices/userSlice";
-import { addDoc, collection, doc, setDoc } from "firebase/firestore";
+ import { addDoc, collection } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
+
 const CreatePodcastForm = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
@@ -17,17 +16,14 @@ const CreatePodcastForm = () => {
   const [bannerImage, setBannerImage] = useState();
 
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  async function handleSubmit() {
+ 
+   async function handleSubmit() {
     if (title && desc && displayImage && bannerImage) {
       //1.Upload file -> get downloadable links
       //2.Create a new doc in a new collection called podcast
       //3.save this new podcast episodes states in our podcasts
       setLoading(true)
-      toast.success("Handling form");
-      try {
+       try {
         const bannerImageRef = ref(
           storage,
           `podcasts/${auth.currentUser.uid}/${Date.now()}`
@@ -54,12 +50,14 @@ const CreatePodcastForm = () => {
            await addDoc(collection(db, "podcasts"), podcastData);
         setTitle("");
         setDesc("");
-        setBannerImage(null);
-        setDisplayImage(null);
+        setBannerImage("");
+        setDisplayImage("");
 
         toast.success("Podcast created");
           setLoading(false);
-      } catch (e) {
+          
+         
+       } catch (e) {
         toast.error(e.message);
         setLoading(false)
       }

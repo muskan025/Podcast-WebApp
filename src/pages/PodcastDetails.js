@@ -27,17 +27,15 @@ const PodcastDetailsPage = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-        console.log("Document data:", docSnap.data());
-        setPodcast({ id: id, ...docSnap.data() });
+         setPodcast({ id: id, ...docSnap.data() });
        } else {
-         toast.error("No such documents");
+         toast.error("No such document");
         navigate("/podcasts");
       }
     } catch (e) {
       toast.error(e.message);
     }
-    console.log(podcast.id);
-  }
+   }
 
   useEffect(() => {
     const unsubscribe = onSnapshot(

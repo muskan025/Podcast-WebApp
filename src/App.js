@@ -56,7 +56,7 @@ function App() {
         <Routes>
           <Route path="/" element={<SignUpPage />} /> {/*Public route */}
           <Route element={<PrivateRoutes />}>
-             {/*All routes inside this are private */}
+             {/*All routes inside this are private,accessible only after authentication */}
             <Route path="/profile" element={<Profile />} />
             <Route path="/create-a-podcast" element={<CreateAPodcastPage />} />
             <Route path="/podcasts" element={<PodcastPage/>}/>

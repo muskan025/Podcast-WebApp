@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Header from "../components/common/Header";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import InputComponent from "../components/common/input";
+ import InputComponent from "../components/common/input";
 import Button from "../components/common/Button";
 import FileInput from "../components/common/input/FileInput";
 import { toast } from "react-toastify";
@@ -17,8 +16,7 @@ const CreateAnEpisodePage = () => {
   const [audioFile, setAudioFile] = useState();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
+ 
   const audioFileHandle = (file) => {
     setAudioFile(file);
   };
@@ -44,8 +42,7 @@ const CreateAnEpisodePage = () => {
         toast.success("Episode created sucessfully");
         setLoading(false);
 
-        console.log("ID: ", id);
-        navigate(`/podcast/${id}`);
+         navigate(`/podcast/${id}`);
         setTitle("");
         setDesc("");
         setAudioFile("");
@@ -54,7 +51,7 @@ const CreateAnEpisodePage = () => {
         setLoading(false);
       }
     } else {
-      toast.error("All files must be present");
+      toast.error("All fields are mandatory");
       setLoading(false);
     }
   }
