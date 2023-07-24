@@ -135,62 +135,6 @@ border:none;
 
 
 
-
-
-
-  /* .profile-div {
-  display: flex;
-   
-  justify-content:  center;
-
-  
-}
-.profile-div input:focus{
-  border: none;
-}
-.upper-div{
-  display: flex;
-  flex-direction: column;
-  
- gap:100px;
-  margin-left:100px;
-}
-.lower-div{
-display: flex;
-flex-direction: column;
- gap:100px;
  
- 
-}
- .lower-div .lower{
-  margin-top:30px !important;
-  padding:0;
- 
- }
-.lower-div h1{
-  
- border-bottom:2px solid  rgba(235, 42, 42, 0.3);
-    box-shadow: rgba(224, 124, 41, 0.25) 0px 50px 100px -20px, rgba(41, 4, 4, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-  padding-bottom: 5px;
-  border-radius: 5px;
-}
-.profile-img {
-  width:200px;
-  height:250px;
-  border-radius: 100px;
-  position: relative;
-  border: none;
-  box-shadow: rgba(224, 124, 41, 0.25) 0px 50px 100px -20px, rgba(235, 42, 42, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
-}
-.profile-placeholder{
-position: absolute;
-top:50%;
-left:50%;
-transition: (-50deg);
-}
- 
-.profile-div input{
-border:none;
-}  */
 
  
