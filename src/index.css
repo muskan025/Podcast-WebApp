@@ -74,7 +74,7 @@ a {
   text-align: left;
   width: 100%;
 }
-/* .profile-div {
+.profile-div {
   display: flex;
    flex-direction: column;
   justify-content:  center;
@@ -126,7 +126,7 @@ transition: (-50deg);
  
 .profile-div input{
 border:none;
-} */
+}
 
 
 
@@ -192,3 +192,5 @@ transition: (-50deg);
 .profile-div input{
 border:none;
 }  */
+
+ 
