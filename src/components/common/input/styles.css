@@ -6,7 +6,7 @@
     padding:1rem;
     font-size:1rem;
     font-weight: 500;
-    width: 70vw;
+    width: 60%;
     margin:1rem;
 }
 
@@ -20,7 +20,7 @@
 }
 
 .label-input{
-        color: var(--purple-grey);
+        color:#7e8080;
 
 }
 .image-icon{

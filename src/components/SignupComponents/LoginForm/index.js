@@ -43,7 +43,7 @@ const navigate=useNavigate( )
     } catch (e) {
       toast.error(e.message);
       setLoading(false);
-    }
+} 
   
  }
    else{

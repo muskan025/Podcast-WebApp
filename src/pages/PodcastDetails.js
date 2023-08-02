@@ -13,7 +13,7 @@ const PodcastDetailsPage = () => {
   const [podcast, setPodcast] = useState({});
   const { id } = useParams();
   const [episodes, setEpisodes] = useState([]);
-  const [playingFile,setPlayingFile]=useState("")
+  const [playingFile, setPlayingFile] = useState("");
 
   useEffect(() => {
     if (id) {
@@ -27,15 +27,15 @@ const PodcastDetailsPage = () => {
       const docSnap = await getDoc(docRef);
 
       if (docSnap.exists()) {
-         setPodcast({ id: id, ...docSnap.data() });
-       } else {
-         toast.error("No such document");
+        setPodcast({ id: id, ...docSnap.data() });
+      } else {
+        toast.error("No such document");
         navigate("/podcasts");
       }
     } catch (e) {
       toast.error(e.message);
     }
-   }
+  }
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -73,7 +73,11 @@ const PodcastDetailsPage = () => {
             <h1 className="podcast-title-heading">{podcast.title}</h1>
             {podcast.createdBy === auth.currentUser.uid && (
               <Button
-                style={{ width: "200px", margin: 0 }}
+                style={{
+                  width: "200px",
+                  marginRight: "-500px",
+                  marginTop: "-19px",
+                }}
                 text={"Create Episode"}
                 onClick={() => navigate(`/podcast/${id}/create-episode`)}
               />
@@ -105,7 +109,9 @@ const PodcastDetailsPage = () => {
           </>
         )}
       </div>
-      {playingFile && <AudioPlayer audioSrc={playingFile} image={podcast.displayImage}/>}
+      {playingFile && (
+        <AudioPlayer audioSrc={playingFile} image={podcast.displayImage} />
+      )}
     </div>
   );
 };

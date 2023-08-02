@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState , useRef} from "react";
 import InputComponent from "../common/input";
 import Button from "../common/Button";
 import { toast } from "react-toastify";
@@ -7,15 +7,14 @@ import FileInput from "../common/input/FileInput";
 import { auth, db, storage } from "../../firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
  import { addDoc, collection } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
-
+ 
 const CreatePodcastForm = () => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
-  const [displayImage, setDisplayImage] = useState();
-  const [bannerImage, setBannerImage] = useState();
-
+  const [displayImage, setDisplayImage] = useState("");
+  const [bannerImage, setBannerImage] = useState("");
   const [loading, setLoading] = useState(false);
+  const fileInputRef=useRef();
  
    async function handleSubmit() {
     if (title && desc && displayImage && bannerImage) {
@@ -50,8 +49,7 @@ const CreatePodcastForm = () => {
            await addDoc(collection(db, "podcasts"), podcastData);
         setTitle("");
         setDesc("");
-        setBannerImage("");
-        setDisplayImage("");
+         fileInputRef.currentUser='';
 
         toast.success("Podcast created");
           setLoading(false);
@@ -92,6 +90,7 @@ const CreatePodcastForm = () => {
       />
       <FileInput
         accept={"image/*"}
+        ref={fileInputRef}
         id="display-image-input"
         fileHandleFnc={displayImageHandle}
         text={"Display Image Upload"}
@@ -99,6 +98,7 @@ const CreatePodcastForm = () => {
 
       <FileInput
         accept={"image/*"}
+        ref={fileInputRef}
         id="banner-image-input"
         fileHandleFnc={bannerImageHandle}
         text={"Banner Image Upload"}

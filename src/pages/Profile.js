@@ -23,7 +23,7 @@ const Profile = () => {
   const [email, setEmail] = useState("");
   const [profileImage, setProfileImage] = useState(null);
   const [loading, setLoading] = useState(false);
-   const [originalProfileImage, setOriginalProfileImage] = useState(null);
+  const [originalProfileImage, setOriginalProfileImage] = useState(null);
   useEffect(() => {
     //check if user exist
     if (!user) <Loader />;
@@ -130,7 +130,6 @@ const Profile = () => {
     }
   }
 
-
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -155,7 +154,7 @@ const Profile = () => {
         <>
           <Header />
           <div className="profile-div">
-            <div className="upper-div">
+            <div className="left-div">
               {profileImage ? (
                 <img
                   src={userData.photoURL}
@@ -177,24 +176,31 @@ const Profile = () => {
                 setState={setFullName}
                 placeholder=""
                 required={true}
-                style={{ fontSize: "50px", backGround: "" }}
+                style={{
+                  fontSize: "45px",
+                  width:"auto",
+                  border:"none",     
+                  whiteSpace: "normal",
+                  wordBreak: "break-word",
+              textAlign:"center"
+                }}
               >
                 {userData?.name}
               </InputComponent>
             </div>
-            <div className="lower-div">
-              <div className="left">
+            <div className="right-div">
+              
                 <InputComponent
                   type="email"
                   state={email}
                   setState={setEmail}
                   placeholder=""
                   required={true}
-                  style={{ fontSize: "24px" }}
+                  style={{ fontSize: "24px", marginBottom: "35px" }}
                 >
                   {userData?.email}
                 </InputComponent>
-              </div>
+               
 
               <div className="right">
                 <FileInput
@@ -217,7 +223,6 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          ;
         </>
       )}
     </div>
@@ -225,8 +230,3 @@ const Profile = () => {
 };
 
 export default Profile;
-
-
-
-
- 

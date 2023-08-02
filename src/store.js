@@ -7,3 +7,15 @@ export default configureStore({
     podcasts: podcastReducer,
   },
 });
+
+
+
+
+// position: absolute;
+//   top: 270px;
+//   left: 20px;  
+//   font-size: 75px;
+//   text-shadow: 2px 2px 3px ;
+//   color: var(--white);
+//   font-weight: bold;
+//   z-index: 1000;

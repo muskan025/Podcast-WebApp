@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import "./styles.css";
 import { BsCardImage } from "react-icons/bs";
 
-const FileInput = ({ accept, id, fileHandleFnc, text, fileStyle }) => {
+const FileInput = ({ accept, id, fileHandleFnc, text, fileStyle,ref }) => {
   const [fileSelected, setFileSelected] = useState("");
   let setfileStyle = fileStyle ? fileStyle : {};
   const onChange = (e) => {
     setFileSelected(e.target.files[0].name);
     fileHandleFnc(e.target.files[0]);
+
   };
   return (
     <>
@@ -22,6 +23,7 @@ const FileInput = ({ accept, id, fileHandleFnc, text, fileStyle }) => {
       </label>
       <input
         type="file"
+        ref={ref}
         accept={accept}
         id={id}
         style={{ display: "none" }}

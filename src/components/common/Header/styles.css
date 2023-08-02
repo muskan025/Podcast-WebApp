@@ -15,7 +15,9 @@
 .links a{
 color:  #bea6bb;
 text-decoration: none;
-font-weight: 500px;
+font-weight: 700px;
+font-size: 1.3rem;
+
 }
 
 .links a:hover{
