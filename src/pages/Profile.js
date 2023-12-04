@@ -158,7 +158,7 @@ const Profile = () => {
               {profileImage ? (
                 <img
                   src={userData.photoURL}
-                  alt="Profile"
+                  
                   className="profile-img"
                 />
               ) : userData?.photoURL ? (
@@ -196,7 +196,7 @@ const Profile = () => {
                   setState={setEmail}
                   placeholder=""
                   required={true}
-                  style={{ fontSize: "24px", marginBottom: "35px" }}
+                  style={{ fontSize: "24px",marginBottom:"35px"}}
                 >
                   {userData?.email}
                 </InputComponent>
@@ -208,17 +208,17 @@ const Profile = () => {
                   id="profile-img-input"
                   fileHandleFnc={handleProfileImage}
                   text="Change Profile Image"
-                  fileStyle={{ paddingRight: "300px" }}
+                  fileStyle={{ paddingRight: "13.2rem",}}
                 />
                 <Button
                   text={"Update Profile"}
                   onClick={updateUserProfile}
-                  logOutStyle={{ width: "150px", marginTop: "35px" }}
+                  logOutStyle={{width:"10rem", marginTop:"2.5rem" }}
                 />
                 <Button
                   text={"Logout"}
                   onClick={handleLogout}
-                  logOutStyle={{ width: "100px" }}
+                  logOutStyle={{width:"10rem", marginTop:"1.5rem"}}
                 />
               </div>
             </div>

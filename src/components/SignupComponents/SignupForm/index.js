@@ -15,6 +15,23 @@ import { setUser } from "../../../slices/userSlice";
 import { toast } from "react-toastify";
 import FileInput from "../../common/input/FileInput";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+ 
+ import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+// const auth = getAuth();
+// onAuthStateChanged(auth, (user) => {
+//   console.log(user)
+//   if (user) {
+//     // User is signed in, see docs for a list of available properties
+//     // https://firebase.google.com/docs/reference/js/auth.user
+//     const uid = user.uid;
+//     console.log(uid,"uid")
+//     // ...
+//   } else {
+//     // User is signed out
+//     // ...
+//   }
+// });
 
 const SignupForm = () => {
   const [fullName, setFullName] = useState("");
@@ -26,8 +43,11 @@ const SignupForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+
   async function handleSignUP() {
     setLoading(true);
+
+    
 
     // Email validation
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
@@ -52,10 +72,13 @@ const SignupForm = () => {
       email
     ) {
       try {
+        
         const profileImageRef = ref(
           storage,
-          `users/${auth.currentUser.uid}/${Date.now()}`
+          `users/${Date.now()}` // Update storage path
         );
+        
+
         await uploadBytes(profileImageRef, profileImage);
 
         const profileImageUrl = await getDownloadURL(profileImageRef);
@@ -66,12 +89,20 @@ const SignupForm = () => {
           email,
           password
         );
+        console.log(userCredential,"credential")
         await updateProfile(userCredential.user, {
           displayName: fullName,
           photoURL: profileImageUrl,
         });
+ 
 
         const user = userCredential.user;
+     
+
+        console.log('user:',user)
+
+      
+
         //Saving user Details
         await setDoc(doc(db, "users", user.uid), {
           name: fullName,
@@ -116,6 +147,8 @@ const SignupForm = () => {
     setProfileImage(file);
   }
 
+ 
+  
   return (
     <>
       <InputComponent
@@ -139,7 +172,7 @@ const SignupForm = () => {
         required
       />
       <InputComponent
-        state={password}
+        state={password}  
         setState={setPassword}
         placeholder="Password"
         type="password"

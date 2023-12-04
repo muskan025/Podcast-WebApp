@@ -7,11 +7,14 @@ const SignUpPage = () => {
   return (
     <div>
       <Header />
-      <div className="podcastApp-name">EARWAVES</div>
-      <img
-        src="https://th.bing.com/th/id/OIG.E3QXFIkOagyOZNFl3LD6?pid=ImgGn"
-        className="banner-image"
-      />{" "}
+     <div className="hero-section">
+   <div className="h-content">
+   <h1 className="podcastApp-name">EARWAVES</h1>
+     <h2>Explore the Power of Podcasting</h2>
+     <p>Unveil the Unheard, Uncover the Unexplored, and Unlock the Power of Voice in Every Episode.</p>
+   </div>
+      
+     </div>
       <div className="input-wrapper">
         {!flag ? <h1>Signup</h1> : <h1>Login</h1>}
         {!flag ? (

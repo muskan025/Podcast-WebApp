@@ -62,12 +62,11 @@ function App() {
             <Route path="/podcasts" element={<PodcastPage/>}/>
             <Route path="/podcast/:id" element={<PodcastDetailsPage/>}/>
             <Route path="/podcast/:id/create-episode" element={<CreateAnEpisodePage/>}/>
-
           </Route>
         </Routes>
       </Router>
     </div>
   );
-}
+}        
 
 export default App;

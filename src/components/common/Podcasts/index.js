@@ -9,7 +9,6 @@ const PodcastCard = ({ id, title, displayImage }) => {
         <img className="display-image-podcast" src={displayImage} />
 
         <div className="lower-div">
-   
           <span className="title-podcast">{title}</span>
           <FaPlay className="play-icon" />
         </div>
