@@ -8,25 +8,36 @@ import { auth, db, storage } from "../firebase";
 import { getAuth, signOut, updateEmail, updateProfile } from "firebase/auth";
 import { toast } from "react-toastify";
 import Loader from "../components/common/Loader";
-import { doc, getDoc, getFirestore, updateDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc, updateDoc } from "firebase/firestore";
 import { setUser } from "../slices/userSlice";
 import InputComponent from "../components/common/input";
 import FileInput from "../components/common/input/FileInput";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Profile = () => {
+
   const user = useSelector((state) => state.user.user);
   const [userData, setUserData] = useState(null);
   const dispatch = useDispatch();
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+  const [location, setLocation] = useState("");
+  const [pincode, setPincode] = useState("");
   const [profileImage, setProfileImage] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [originalProfileImage, setOriginalProfileImage] = useState(null);
   useEffect(() => {
     //check if user exist
-    if (!user) <Loader />;
+    if (!user) {
+      <Loader />
+       
+      setTimeout(()=>{
+        setLoading(false)
+      },4000)
+    }
     else {
       async function getUserData() {
         const userDoc = await getDoc(doc(db, "users", user.uid));
@@ -42,9 +53,14 @@ const Profile = () => {
       setFullName(userData.name);
       setEmail(userData.email);
       setProfileImage(userData?.photoURL);
-      setOriginalProfileImage(userData?.photoURL); // Add this line
+      setOriginalProfileImage(userData?.photoURL);
+      setDob(userData.dob)
+      setGender(userData.gender)
+      setLocation(userData.location)
+      setPincode(userData.pincode)
     }
   }, [userData]);
+
 
   async function updateUserProfile() {
     const currentUser = auth.currentUser;
@@ -68,6 +84,7 @@ const Profile = () => {
       await updateProfile(currentUser, {
         displayName: fullName,
         photoURL: profileImageUrl,
+        
       })
         .then(() => {
           const db = getFirestore();
@@ -78,22 +95,21 @@ const Profile = () => {
           updateDoc(userDocRef, {
             name: fullName,
             photoURL: profileImageUrl,
+            dob:dob,
+        gender:gender,
+        location:location,
+        pincode:pincode
           });
-          console.log("Before dispatch");
-          console.log("Name:", userData.name);
-          console.log("Image:", userData.photoURL);
+          
           setProfileImage(userData.photoURL);
           dispatch(
             setUser({
               name: fullName,
               email: email,
-
               uid: user.uid,
             })
           );
-          console.log("After dispatch");
-          console.log("Name:", user.name);
-          console.log("Image:", user.photoURL);
+          
           // Update the state with the download URL for the uploaded image
 
           toast.success("Profile updated!");
@@ -111,13 +127,20 @@ const Profile = () => {
           const userDocRef = doc(db, "users", currentUser.uid);
           updateDoc(userDocRef, {
             name: fullName,
+            dob:dob,
+        gender:gender,
+        location:location,
+        pincode:pincode,
           });
-
+ 
           dispatch(
             setUser({
               name: fullName,
               email: email,
-
+              dob:dob,
+              gender:gender,
+              location:location,
+              pincode:pincode,
               uid: user.uid,
             })
           );
@@ -130,6 +153,9 @@ const Profile = () => {
     }
   }
 
+  function handleGender(e){
+    setGender(e.target.value);
+  }
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -145,7 +171,6 @@ const Profile = () => {
       setProfileImage(file);
     }
   }
-
   return (
     <div>
       {!user ? (
@@ -170,57 +195,98 @@ const Profile = () => {
               ) : (
                 <div className="profile-placeholder"> </div>
               )}
-              <InputComponent
-                type="text"
-                state={fullName}
-                setState={setFullName}
-                placeholder=""
-                required={true}
-                style={{
-                  fontSize: "45px",
-                  width:"auto",
-                  border:"none",     
-                  whiteSpace: "normal",
-                  wordBreak: "break-word",
-              textAlign:"center"
-                }}
-              >
-                {userData?.name}
-              </InputComponent>
+              
             </div>
             <div className="right-div">
-              
+            <div className="info">
+
+            <label htmlFor="full-name-input">Full Name</label>
                 <InputComponent
+                  id="full-name-input"
+                  type="text"
+                  state={fullName}
+                  setState={setFullName}
+                  placeholder=""
+                  required={true}
+                  style={{ fontSize: "24px"}}
+                />
+              </div>
+              <div className="info">
+                <label htmlFor="email-input">Email</label>
+                <InputComponent
+                  id="email-input"
                   type="email"
                   state={email}
                   setState={setEmail}
                   placeholder=""
                   required={true}
-                  style={{ fontSize: "24px",marginBottom:"35px"}}
-                >
-                  {userData?.email}
-                </InputComponent>
-               
-
-              <div className="right">
-                <FileInput
-                  accept="image/*"
-                  id="profile-img-input"
-                  fileHandleFnc={handleProfileImage}
-                  text="Change Profile Image"
-                  fileStyle={{ paddingRight: "13.2rem",}}
-                />
-                <Button
-                  text={"Update Profile"}
-                  onClick={updateUserProfile}
-                  logOutStyle={{width:"10rem", marginTop:"2.5rem" }}
-                />
-                <Button
-                  text={"Logout"}
-                  onClick={handleLogout}
-                  logOutStyle={{width:"10rem", marginTop:"1.5rem"}}
                 />
               </div>
+              <div className="info">
+                <label htmlFor="dob-input">DOB</label>
+                <InputComponent
+                  id="dob-input"
+                  type="date"
+                  state={dob}
+                  setState={setDob}
+                  placeholder=""
+                  required={true}
+                />
+              </div>
+              <div className="info">
+                <label htmlFor="gender-input">Gender</label>
+                <select 
+                id="gender-input"
+                value={gender}
+                className="custom-input"
+                onChange={handleGender}
+                >
+                  <option value="">Select your gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div className="info">
+                <label htmlFor="location-input">Location</label>
+                <InputComponent
+                  id="location-input"
+                  type="text"
+                  state={location}
+                  setState={setLocation}
+                  placeholder=""
+                  required={true}
+                />
+              </div>
+              <div className="info">
+                <label htmlFor="pin-code-input">Pin Code</label>
+                <InputComponent
+                  id="pin-code-input"
+                  type="text"
+                  state={pincode}
+                  setState={setPincode}
+                  placeholder=""
+                  required={true}
+                />
+              </div>
+              
+            
+            <div className="info">
+              <label htmlFor="profile-img-input">Update Image</label>
+              <FileInput
+                accept="image/*"
+                id="profile-img-input"
+                fileHandleFnc={handleProfileImage}
+                text="Change Profile Image"
+              />
+            </div>
+            <div className="info">
+              <Button
+                text={"Update Profile"}
+                onClick={updateUserProfile}
+                logOutStyle={{width:"10rem", marginTop:"2.3rem" }}
+              />
+            </div>
             </div>
           </div>
         </>

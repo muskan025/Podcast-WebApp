@@ -16,6 +16,8 @@ import Podcasts from "./pages/Podcasts";
 import PodcastPage from "./pages/Podcasts";
  import PodcastDetailsPage from "./pages/PodcastDetails";
 import CreateAnEpisodePage from "./pages/CreateAnEpisode";
+import Home from "./pages/Home";
+import LoginForm from "./components/SignupComponents/LoginForm";
 function App() {
   const dispatch=useDispatch()
   useEffect(() => {
@@ -54,7 +56,9 @@ function App() {
 
       <Router>
         <Routes>
-          <Route path="/" element={<SignUpPage />} /> {/*Public route */}
+          <Route path="/" element={<Home/>}/>
+          <Route path="/signup" element={<SignUpPage />} /> 
+          <Route path="/login" element={<LoginForm />} /> {/*Public route */}
           <Route element={<PrivateRoutes />}>
              {/*All routes inside this are private,accessible only after authentication */}
             <Route path="/profile" element={<Profile />} />

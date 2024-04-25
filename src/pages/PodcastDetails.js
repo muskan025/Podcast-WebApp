@@ -71,7 +71,7 @@ const PodcastDetailsPage = () => {
               }}
             ></div>
             <h1 className="podcast-title-heading">{podcast.title}</h1>
-            {podcast.createdBy === auth.currentUser.uid && (
+            {/* {podcast.createdBy === auth.currentUser.uid && (
               <Button
                 style={{
                   width: "200px",
@@ -81,11 +81,24 @@ const PodcastDetailsPage = () => {
                 text={"Create Episode"}
                 onClick={() => navigate(`/podcast/${id}/create-episode`)}
               />
-            )}
-            <div className="banner-wrapper">
+            )} */}
+           <div class="podcast-header">
+           <div className="banner-wrapper">
               <img src={podcast.bannerImage} alt="Podcast Banner" />
             </div>
             <p className="podcast-description">{podcast.description}</p>
+            {podcast.createdBy === auth.currentUser.uid && (
+              <Button
+                style={{
+                  width: "10rem",
+                  marginRight: "-500px",
+                  marginTop: "-19px",
+                }}
+                text={"Create Episode"}
+                onClick={() => navigate(`/podcast/${id}/create-episode`)}
+              />
+            )}
+           </div>
             <h1 className="podcast-title-heading">Episodes</h1>
 
             {episodes.length > 0 ? (

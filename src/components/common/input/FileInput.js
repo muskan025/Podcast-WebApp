@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./styles.css";
 import { BsCardImage } from "react-icons/bs";
 
-const FileInput = ({ accept, id, fileHandleFnc, text, fileStyle,ref }) => {
+const FileInput = ({ label,accept, id, fileHandleFnc, text, fileStyle, }) => {
   const [fileSelected, setFileSelected] = useState("");
   let setfileStyle = fileStyle ? fileStyle : {};
   const onChange = (e) => {
@@ -15,20 +15,23 @@ const FileInput = ({ accept, id, fileHandleFnc, text, fileStyle,ref }) => {
       <label
         htmlFor={id}
         className={`custom-input ${!fileSelected ? "label-input" : "active"} `}
-        style={setfileStyle }
       >
+         
         <BsCardImage className="image-icon" />
 
         {fileSelected ? `${fileSelected}` : text}
       </label>
       <input
         type="file"
-        ref={ref}
+        
         accept={accept}
         id={id}
         style={{ display: "none" }}
         onChange={onChange}
+        className="custom-input"
+        
       />
+        
     </>
   );
 };

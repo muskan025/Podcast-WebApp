@@ -38,6 +38,12 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [dob, setDob] = useState("");
+  const [gender, setGender] = useState("");
+  const [location, setLocation] = useState("");
+  const [pincode, setPincode] = useState("");
+  
   const [loading, setLoading] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const dispatch = useDispatch();
@@ -89,20 +95,14 @@ const SignupForm = () => {
           email,
           password
         );
-        console.log(userCredential,"credential")
+         
         await updateProfile(userCredential.user, {
           displayName: fullName,
           photoURL: profileImageUrl,
         });
  
-
         const user = userCredential.user;
-     
-
-        console.log('user:',user)
-
-      
-
+ 
         //Saving user Details
         await setDoc(doc(db, "users", user.uid), {
           name: fullName,
@@ -122,6 +122,7 @@ const SignupForm = () => {
         toast.success("Account created successfully");
         setLoading(false);
         navigate("/profile");
+        console.log("user: ",user)
       } catch (e) {
         toast.error(e.message);
         setLoading(false);
@@ -139,6 +140,7 @@ const SignupForm = () => {
       } else if (password !== confirmPassword) {
         toast.error("Password and confirm password do not match");
       }
+    
       setLoading(false);
     }
   }

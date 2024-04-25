@@ -80,6 +80,8 @@ const CreatePodcastForm = () => {
         placeholder="Title"
         type="text"
         required={true}
+        label="Title"
+        id="title"
       />
       <InputComponent
         state={desc}
@@ -87,21 +89,24 @@ const CreatePodcastForm = () => {
         placeholder="Description"
         type="text"
         required={true}
+        label="Description"
+        id="description"
       />
       <FileInput
         accept={"image/*"}
-        ref={fileInputRef}
         id="display-image-input"
         fileHandleFnc={displayImageHandle}
         text={"Display Image Upload"}
+        label="Display Image Upload"
       />
 
       <FileInput
         accept={"image/*"}
-        ref={fileInputRef}
+        // ref={fileInputRef}
         id="banner-image-input"
         fileHandleFnc={bannerImageHandle}
         text={"Banner Image Upload"}
+        label="Banner Image Upload"
       />
       <Button
         text={loading ? "Loading..." : "Create Podcast"}

@@ -1,11 +1,13 @@
 import React, { useEffect } from "react";
 import "./styles.css";
-const InputComponent = ({ type, state, setState, placeholder,style, required}) => {
+const InputComponent = ({label,id, type, state, setState, placeholder,style, required}) => {
   useEffect(()=>{
    },[state])
    
   
   return (
+   <>
+    {/* <label htmlFor={label} className="label-input">{label}</label> */}
     <input
       type={type}
       value={state}
@@ -14,10 +16,10 @@ const InputComponent = ({ type, state, setState, placeholder,style, required}) =
       }}
       placeholder={placeholder}
       required={required}
-       
-      style={{ outline: "none", ...style }}
-      className="custom-input"
+       id={id}
+       className="custom-input"
     />
+    </>
   );
 };
 

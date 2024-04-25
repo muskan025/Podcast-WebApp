@@ -2,19 +2,14 @@ import React, { useState } from "react";
 import Header from "../components/common/Header";
 import SignupForm from "../components/SignupComponents/SignupForm";
 import LoginForm from "../components/SignupComponents/LoginForm";
+import { useSelector } from "react-redux";
 const SignUpPage = () => {
+  const user = useSelector((state) => state.user.user);
   const [flag, setFlag] = useState(false);
+
   return (
     <div>
       <Header />
-     <div className="hero-section">
-   <div className="h-content">
-   <h1 className="podcastApp-name">EARWAVES</h1>
-     <h2>Explore the Power of Podcasting</h2>
-     <p>Unveil the Unheard, Uncover the Unexplored, and Unlock the Power of Voice in Every Episode.</p>
-   </div>
-      
-     </div>
       <div className="input-wrapper">
         {!flag ? <h1>Signup</h1> : <h1>Login</h1>}
         {!flag ? (

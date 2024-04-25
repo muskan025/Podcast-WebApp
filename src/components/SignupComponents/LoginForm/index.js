@@ -76,6 +76,7 @@ toast.error("All fields are mandatory")
   // };
   return (
     <>
+    <div>
       <InputComponent
         state={email}
         setState={setEmail}
@@ -93,7 +94,7 @@ toast.error("All fields are mandatory")
 
       <Button text={loading?"Loading...":"Login"} disabled={loading} onClick={handleLogin} />
       {/* <Button text={loading?"Loading...":"Login using Google"} disabled={loading} onClick={handleGoogleSingIn} /> */}
-    </>
+    </div></>
   );
 };
 
