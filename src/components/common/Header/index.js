@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './styles.css'
 import { Link,useLocation } from 'react-router-dom'
+import { RxHamburgerMenu } from "react-icons/rx"
 import { useSelector } from "react-redux";
 import Button from '../Button';
 import { signOut } from 'firebase/auth';
@@ -10,6 +11,7 @@ import { toast } from 'react-toastify';
 const Header = () => {
   const location=useLocation();
   const currentPath=location.pathname;
+  const [isHamburger, setIsHamburger] = useState(false)
 
   const handleLogout = () => {
     signOut(auth)
@@ -25,7 +27,7 @@ const Header = () => {
       <div className="gradient"></div>
      <div className="header-sect">
      <h2 className="pod-name">ProdPulse.</h2>
-     <div className="links" >
+     <div className={`links ${isHamburger ? 'open_menu' :  'close_menu'}`} >
       
         <Link to="/" className={currentPath==="/"?"active":""}>Home</Link>
         <Link
@@ -69,6 +71,7 @@ const Header = () => {
  
       </div>
 
+<RxHamburgerMenu className='hamburger' onClick={() => setIsHamburger(!isHamburger)}/>
      </div>
     </div>
   );

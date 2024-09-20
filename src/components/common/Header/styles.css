@@ -1,18 +1,24 @@
+
 .navbar {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 1.5rem;
-}
+ }
 
 .header-sect {
   display: flex;
-  gap: 35rem;
+  align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+     
 }
 
 .pod-name {
   font-style: oblique;
   margin-right: 1rem;
+  margin-block:0;
   cursor: pointer;
 }
 .logout{
@@ -39,16 +45,13 @@
   color: #bea6bb;
   text-decoration: none;
   font-weight: 700px;
-  font-size: 1.3rem;
+  font-size: var(--fs-s);
 }
 
 .links a:hover {
   color: var(--white);
   transition: all 0.3s;
 }
-/* .sign-log{
-    display: flex;
-} */
 
 .gradient {
   position: absolute;
@@ -62,4 +65,46 @@
 }
 .active {
   color: var(--white) !important;
+}
+
+.hamburger{
+  display: none;
+  }
+
+@media (max-width:425px){
+
+  .header-sect{
+    position: relative;
+  }
+  .hamburger{
+    display: block;
+    font-size: 30px;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+  }
+  
+  .links{
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+     background: whitesmoke;
+     border-radius: 10px;
+    padding: 40px;
+    color: black;
+    font-weight: var(--fw-s);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+  }
+  .links.open_menu {
+    opacity: 1;
+    visibility: visible;
+  }
+  .active {
+    color: black !important;
+}
+
 }

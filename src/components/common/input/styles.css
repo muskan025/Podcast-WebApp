@@ -4,9 +4,8 @@
   border: 2px solid var(--purple-grey);
   border-radius: 0.5rem;
   padding: 1rem;
-  font-size:  1.1rem;
+  font-size:  var(--fs-s);
   font-weight: 500;
-  min-width: 70%;
   margin: 1rem;
 }
 
@@ -14,10 +13,7 @@
   outline: none;
   border-color: var(--white);
 }
-
-.custom-input::placeholder {
-  /* color: var(--purple-grey); */
- }
+ 
 
 .label-input {
   color: grey;

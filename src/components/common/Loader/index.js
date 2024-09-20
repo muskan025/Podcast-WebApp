@@ -7,14 +7,9 @@ const Loader = () => {
     margin: "0 auto",
     borderColor: "red",
   };
+  const loading=true
   return (
     <div className="wrapper">
-      {/* <div className="loadingio-spinner-ripple-a3wzgttb9p9">
-        <div className="ldio-zo3yelr07za">
-          <div></div>
-          <div></div>
-        </div>
-      </div> */}
        <ClipLoader
         color={color}
         loading={loading}

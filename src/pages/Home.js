@@ -38,17 +38,14 @@ const Home = () => {
         <Header/>
         <div className="container">
             <div className="hero">
-                <div className="hero-r">
-                    <div className="intro-top">
-                    <h1>A quick and easy<br></br>
-                    way to listen to most<br></br>
+                <div className="intro-top">
+                 
+                    <h1>A quick and easy 
+                    way to listen to most 
                     favourite podcast</h1>
-                    </div>
-                        
-                    <div className="intro-btm">
-                    <p>Explore latest top-notch stories</p><p>from world-wide community and tech creaters</p>
-                    </div>
+                    <p className="intro-btm">Explore latest top-notch stories from world-wide community and tech creaters</p>
                 </div>
+                 
                 <div className="hero-l">
                     <div className="btm">
                     {
