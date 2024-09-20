@@ -62,12 +62,115 @@ const Profile = () => {
   }, [userData]);
 
 
+  // async function updateUserProfile() {
+  //   const currentUser = auth.currentUser;
+  //   if (!currentUser) {
+  //     return;
+  //   }
+
+  //   // Check if the profile image has changed
+  //   if (profileImage !== originalProfileImage) {
+  //     // Upload the image to Firebase storage
+  //     const profileImageRef = ref(
+  //       storage,
+  //       `users/${auth.currentUser.uid}/${Date.now()}`
+  //     );
+  //     await uploadBytes(profileImageRef, profileImage);
+
+  //     // Get a download URL for the uploaded image
+  //     const profileImageUrl = await getDownloadURL(profileImageRef);
+
+  //     // Update the user's profile in Firebase Auth
+  //     await updateProfile(currentUser, {
+  //       displayName: fullName,
+  //       photoURL: profileImageUrl,
+        
+  //     })
+  //       .then(() => {
+  //         const db = getFirestore();
+
+  //         // Get a reference to the user's document in Firestore
+  //         const userDocRef = doc(db, "users", currentUser.uid);
+  //         // Update the user's name and photoURL in Firestore
+  //         updateDoc(userDocRef, {
+  //           name: fullName,
+  //           photoURL: profileImageUrl,
+  //           dob:dob,
+  //       gender:gender,
+  //       location:location,
+  //       pincode:pincode
+  //         });
+          
+  //         setProfileImage(userData.photoURL);
+  //         dispatch(
+  //           setUser({
+  //             name: fullName,
+  //             email: email,
+  //             uid: user.uid,
+  //           })
+  //         );
+          
+  //         // Update the state with the download URL for the uploaded image
+
+  //         toast.success("Profile updated!");
+  //       })
+  //       .catch((e) => {
+  //         toast.error(e.message);
+  //       });
+  //   } else {
+  //     // Only update the user's name in Firebase Auth and Firestore
+  //     await updateProfile(currentUser, {
+  //       displayName: fullName,
+  //     })
+  //       .then(() => {
+  //         const db = getFirestore();
+  //         const userDocRef = doc(db, "users", currentUser.uid);
+  //         updateDoc(userDocRef, {
+  //           name: fullName,
+  //           dob:dob,
+  //       gender:gender,
+  //       location:location,
+  //       pincode:pincode,
+  //         });
+ 
+  //         dispatch(
+  //           setUser({
+  //             name: fullName,
+  //             email: email,
+  //             dob:dob,
+  //             gender:gender,
+  //             location:location,
+  //             pincode:pincode,
+  //             uid: user.uid,
+  //           })
+  //         );
+
+  //         toast.success("Profile updated!");
+  //       })
+  //       .catch((e) => {
+  //         toast.error(e.message);
+  //       });
+  //   }
+  // }
+
   async function updateUserProfile() {
     const currentUser = auth.currentUser;
     if (!currentUser) {
       return;
     }
-
+  
+    let updatedData = {
+      name: fullName,
+      gender: gender,
+      location: location,
+      pincode: pincode,
+    };
+  
+    // Only include dob in the update if it's not empty and not the placeholder
+    if (dob && dob !== "dd-mm-yyyy") {
+      updatedData.dob = dob;
+    }
+  
     // Check if the profile image has changed
     if (profileImage !== originalProfileImage) {
       // Upload the image to Firebase storage
@@ -76,80 +179,44 @@ const Profile = () => {
         `users/${auth.currentUser.uid}/${Date.now()}`
       );
       await uploadBytes(profileImageRef, profileImage);
-
+  
       // Get a download URL for the uploaded image
       const profileImageUrl = await getDownloadURL(profileImageRef);
-
+  
       // Update the user's profile in Firebase Auth
       await updateProfile(currentUser, {
         displayName: fullName,
         photoURL: profileImageUrl,
-        
-      })
-        .then(() => {
-          const db = getFirestore();
-
-          // Get a reference to the user's document in Firestore
-          const userDocRef = doc(db, "users", currentUser.uid);
-          // Update the user's name and photoURL in Firestore
-          updateDoc(userDocRef, {
-            name: fullName,
-            photoURL: profileImageUrl,
-            dob:dob,
-        gender:gender,
-        location:location,
-        pincode:pincode
-          });
-          
-          setProfileImage(userData.photoURL);
-          dispatch(
-            setUser({
-              name: fullName,
-              email: email,
-              uid: user.uid,
-            })
-          );
-          
-          // Update the state with the download URL for the uploaded image
-
-          toast.success("Profile updated!");
-        })
-        .catch((e) => {
-          toast.error(e.message);
-        });
+      });
+  
+      updatedData.photoURL = profileImageUrl;
     } else {
-      // Only update the user's name in Firebase Auth and Firestore
+      // Only update the user's name in Firebase Auth
       await updateProfile(currentUser, {
         displayName: fullName,
-      })
-        .then(() => {
-          const db = getFirestore();
-          const userDocRef = doc(db, "users", currentUser.uid);
-          updateDoc(userDocRef, {
-            name: fullName,
-            dob:dob,
-        gender:gender,
-        location:location,
-        pincode:pincode,
-          });
- 
-          dispatch(
-            setUser({
-              name: fullName,
-              email: email,
-              dob:dob,
-              gender:gender,
-              location:location,
-              pincode:pincode,
-              uid: user.uid,
-            })
-          );
-
-          toast.success("Profile updated!");
+      });
+    }
+  
+    try {
+      const db = getFirestore();
+      const userDocRef = doc(db, "users", currentUser.uid);
+      
+      // Update the user's document in Firestore
+      await updateDoc(userDocRef, updatedData);
+  
+      // Update Redux store
+      dispatch(
+        setUser({
+          name: fullName,
+          email: email,
+          uid: user.uid,
+          ...updatedData
         })
-        .catch((e) => {
-          toast.error(e.message);
-        });
+      );
+  
+      toast.success("Profile updated successfully!");
+    } catch (error) {
+      toast.error("Error updating profile: " + error.message);
     }
   }
 
@@ -229,7 +296,7 @@ const Profile = () => {
                   type="date"
                   state={dob}
                   setState={setDob}
-                  placeholder=""
+                  placeholder="YYYY-MM-DD"
                   required={true}
                 />
               </div>
