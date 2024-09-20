@@ -122,7 +122,7 @@ const SignupForm = () => {
         toast.success("Account created successfully");
         setLoading(false);
         navigate("/profile");
-        console.log("user: ",user)
+        
       } catch (e) {
         toast.error(e.message);
         setLoading(false);

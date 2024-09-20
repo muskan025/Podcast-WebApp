@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../components/common/Header";
 import SignupForm from "../components/SignupComponents/SignupForm";
 import LoginForm from "../components/SignupComponents/LoginForm";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 const SignUpPage = () => {
   const user = useSelector((state) => state.user.user);
   const [flag, setFlag] = useState(false);
+  const {state} = useLocation()
+    
+  useEffect(()=>{
+    setFlag(state)
+  },[state])
 
   return (
     <div>
@@ -20,7 +26,7 @@ const SignUpPage = () => {
             </p>
           </>
         ) : (
-          <>
+           <>
             <LoginForm />
             <p style={{ cursor: "pointer" }} onClick={() => setFlag(!flag)}>
               Don't have an account? Click here to Signup.

@@ -64,7 +64,7 @@ const Header = () => {
         <Link to="/signup" className={currentPath === "/signup" ? "active" : "auth"}>
         Signup
       </Link>
-      <Link to="/login" className={currentPath==="/login"?"active":"auth"}>
+      <Link to="/login" state={true} className={currentPath==="/login"?"active":"auth"}>
       Login</Link></>:
       ""
       }
