@@ -23,13 +23,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--theme);
   color: var(--white);
-  max-width: 100%;
+ min-height: 100vh;
   overflow-x: hidden;
   
   }
 .container {
-  padding-inline: 3rem;
-  padding-block: 3rem;
+  padding-inline: 1rem;
+  padding-block: 1rem;
  }
 
 .hero {
@@ -42,18 +42,22 @@ body {
   font-size: clamp(18px, 3vw, 22px);
   line-height: 4rem;
   letter-spacing: 0.16rem;
-  max-width: 400px;
+  max-width: 30rem;
 }
 .hero .intro-btm {
   font-size: var(--fs-s);
   line-height: 1.3em;
   padding-top: 0.1rem;
+  width:100%;
 }
 .hero .intro-btm > h4 {
   font-weight: 500;
 }
 .hero-l img {
   cursor: pointer;
+}
+.hero .audioImg{
+width:100%;
 }
 .hero-l .btm {
   display: flex;
@@ -81,7 +85,7 @@ body {
   display: flex;
   gap: 1.5rem;
   align-items: center;
-  width: 30rem;
+  max-width: 25rem;
   justify-content: center;
   border: 3px solid white;
   border-radius: 1rem;
@@ -162,7 +166,8 @@ a {
   flex-direction: column;
   align-items: center;
   margin-block: 5rem;
-  gap:5rem
+  gap:5rem;
+  width:100%;
 }
 
 .profile-div .left-div img {
@@ -213,4 +218,23 @@ a {
   flex-wrap: wrap;
 }
  
+}
+@media ( max-width:375px){
+  .hero .btm{
+    width: 200px;
+  }
+  .hero-l img {
+   width:100%;
+}
+.hero .audioImg{
+  width:100%
+}
+ 
+}
+
+@media (max-width:425px){
+  
+  .right-div{
+    grid-template-columns: 1fr;
+  }
 }

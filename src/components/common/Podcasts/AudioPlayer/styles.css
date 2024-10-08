@@ -20,7 +20,6 @@
   height: 50px;
   width: 50px;
   object-fit: cover;
-  margin: 0rem 1rem;
 }
 
 .duration-range {
@@ -43,4 +42,17 @@
 
 .audio-btn {
   cursor: pointer;
+}
+
+@media (max-width:425px){
+  .display-image-player{
+    width:25px;
+    height: 25px;
+  }
+  .duration-flex{
+    position: absolute;
+    bottom: 0;
+    width: 70%;
+    top: 3rem;
+  }
 }

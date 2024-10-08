@@ -56,60 +56,11 @@ const Home = () => {
               <source src={welcome} type="audio/wav" />
               Your browser does not support the audio element.
             </audio>
-                        <img src={audio} alt="audio"/>
+                        <img src={audio} alt="audio" className="audioImg"/>
                     </div>
                 </div>
             </div>
-            <div className="thumbnail-container">
-                <h1>Weekly Popular</h1>
-                <div className="thumbnail-subcontainer">
-                    <div className="thumbnail">
-                        <div className="thumbnail-r">
-                        <img className='headphone' src={headphone} alt="headphone"/>
-                        </div>
-                        <div className="thumbnail-l">
-                            <div className="top">
-                                <h4>Tech Talk: Exploring the Future</h4>
-                                <p>by John Smith</p>
-                            </div>
-                            <div className="btm">
-                                <span>45:00</span>
-                                <img src={pdtplay} alt="pause"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="thumbnail">
-                        <div className="thumbnail-r">
-                           <img className='headphone' src={headphone} alt="headphone"/>
-                        </div>
-                        <div className="thumbnail-l">
-                            <div className="top">
-                                <h4>Every day life</h4>
-                                <p>by Karry Jim</p>
-                            </div>
-                            <div className="btm">
-                                <span>50:21</span>
-                                <img src={pdtplay} alt="pause"/>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="thumbnail">
-                        <div className="thumbnail-r">
-                           <img className='headphone' src={headphone} alt="headphone"/>
-                        </div>
-                        <div className="thumbnail-l">
-                            <div className="top">
-                                <h4>The Mindful Minute</h4>
-                                <p>by Jane Doe</p>
-                            </div>
-                            <div className="btm">
-                                <span>30:00</span>
-                                <img src={pdtplay} alt="pause"/>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
   )
